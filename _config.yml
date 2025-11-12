@@ -1,0 +1,8 @@
+title: Operations Calculator
+description: Price calculator for Kubernetes hosting and VPS hosting
+url: ""
+
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+

@@ -1,0 +1,263 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    background-color: #000000;
+    color: #fff;
+    line-height: 1.6;
+    padding: 40px 20px;
+    min-height: 100vh;
+}
+
+.calculator-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.calculator-title {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.calculator-content {
+    background-color: #000000;
+}
+
+.config-section {
+    margin-bottom: 30px;
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.section-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.info-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    border: 1px solid #ffffff;
+    border-radius: 50%;
+    font-size: 12px;
+    cursor: help;
+}
+
+.section-description {
+    font-size: 0.9rem;
+    color: #ffffff;
+    margin-bottom: 20px;
+    opacity: 0.9;
+}
+
+.section-divider {
+    border: none;
+    border-top: 1px solid #333333;
+    margin: 30px 0;
+}
+
+.input-group {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.slider {
+    flex: 1;
+    height: 6px;
+    background-color: #333333;
+    border-radius: 3px;
+    outline: none;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    background-color: #ffffff;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    background-color: #ffffff;
+    border-radius: 50%;
+    cursor: pointer;
+    border: none;
+}
+
+.input-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.number-input {
+    width: 80px;
+    padding: 8px 12px;
+    background-color: transparent;
+    border: 1px solid #ffffff;
+    color: #ffffff;
+    font-size: 1rem;
+    text-align: center;
+    -moz-appearance: textfield;
+}
+
+.number-input::-webkit-outer-spin-button,
+.number-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.number-input:focus {
+    outline: 1px solid #ffffff;
+    outline-offset: 2px;
+}
+
+.unit {
+    color: #ffffff;
+    font-size: 0.9rem;
+}
+
+.model-selector {
+    display: flex;
+    gap: 24px;
+    margin-top: 10px;
+}
+
+.model-option {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.model-option input[type="radio"] {
+    width: 18px;
+    height: 18px;
+    border: 1px solid #ffffff;
+    background-color: transparent;
+    cursor: pointer;
+    -webkit-appearance: none;
+    appearance: none;
+    border-radius: 50%;
+    position: relative;
+}
+
+.model-option input[type="radio"]:checked::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 10px;
+    height: 10px;
+    background-color: #ffffff;
+    border-radius: 50%;
+}
+
+.model-label {
+    color: #ffffff;
+    font-size: 0.95rem;
+}
+
+.options-group {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+}
+
+.checkbox {
+    width: 18px;
+    height: 18px;
+    border: 1px solid #ffffff;
+    background-color: transparent;
+    cursor: pointer;
+    -webkit-appearance: none;
+    appearance: none;
+    position: relative;
+}
+
+.checkbox:checked::after {
+    content: '✓';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.checkbox-text {
+    color: #ffffff;
+    font-size: 0.95rem;
+}
+
+.price-display {
+    text-align: right;
+    margin-top: 20px;
+}
+
+.price-monthly {
+    color: #ffffff;
+    font-size: 1rem;
+    margin-bottom: 8px;
+}
+
+.price-yearly {
+    color: #ffffff;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.price-yearly strong {
+    font-weight: bold;
+}
+
+.price-note {
+    color: #ffffff;
+    font-size: 0.85rem;
+    opacity: 0.8;
+    margin-top: 8px;
+}
+
+@media (max-width: 600px) {
+    .input-group {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .input-wrapper {
+        justify-content: flex-end;
+    }
+}
+

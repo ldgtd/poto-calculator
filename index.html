@@ -1,0 +1,94 @@
+---
+layout: default
+title: Home
+---
+
+<div class="calculator-container">
+  <h1 class="calculator-title">Hosting Calculator</h1>
+  
+  <div class="calculator-content">
+    <!-- Model Selection Section -->
+    <section class="config-section">
+      <div class="section-header">
+        <h2 class="section-title">Model</h2>
+      </div>
+      <p class="section-description">Select hosting type.</p>
+      <div class="model-selector">
+        <label class="model-option">
+          <input type="radio" name="hosting-model" id="model-kubernetes" value="kubernetes" checked>
+          <span class="model-label">Kubernetes</span>
+        </label>
+        <label class="model-option">
+          <input type="radio" name="hosting-model" id="model-vps" value="vps">
+          <span class="model-label">VPS</span>
+        </label>
+      </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- RAM Section -->
+    <section class="config-section">
+      <div class="section-header">
+        <h2 class="section-title">RAM</h2>
+      </div>
+      <div class="input-group">
+        <input type="range" id="ram-slider" class="slider" min="0" max="3" value="0" step="1">
+        <div class="input-wrapper">
+          <input type="number" id="ram-input" class="number-input" min="2" max="16" value="2">
+          <span class="unit">GB</span>
+        </div>
+      </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- Storage Section -->
+    <section class="config-section">
+      <div class="section-header">
+        <h2 class="section-title">Storage</h2>
+      </div>
+      <div class="input-group">
+        <input type="range" id="storage-slider" class="slider" min="50" max="400" value="50" step="50">
+        <div class="input-wrapper">
+          <input type="number" id="storage-input" class="number-input" min="50" max="400" value="50" step="50">
+          <span class="unit">GB</span>
+        </div>
+      </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- Price Section -->
+    <section class="config-section">
+      <div class="section-header">
+        <h2 class="section-title">Price</h2>
+      </div>
+      <div class="price-display">
+        <!-- Kubernetes pricing display -->
+        <div id="kubernetes-pricing" class="pricing-breakdown">
+          <div class="price-monthly">
+            <span id="price-monthly">CHF 40</span> / month
+          </div>
+          <div class="price-yearly">
+            <strong id="price-yearly">CHF 480</strong> / year
+          </div>
+        </div>
+        <!-- VPS pricing display -->
+        <div id="vps-pricing" class="pricing-breakdown" style="display: none;">
+          <div class="price-line price-monthly">
+            <span class="price-label">Prix mensuel:</span>
+            <span id="vps-monthly-price">CHF 0.00</span>
+          </div>
+          <div class="price-line price-yearly">
+            <span class="price-label">Prix annuel:</span>
+            <strong id="vps-yearly-price">CHF 0.00</strong>
+          </div>
+        </div>
+        <div class="price-note">VAT not included</div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<script src="{{ '/assets/js/calculator.js' | relative_url }}"></script>
