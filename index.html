@@ -7,7 +7,6 @@ title: Home
   <h1 class="calculator-title">Hosting Calculator</h1>
   
   <div class="calculator-content">
-    <!-- Model Selection Section -->
     <section class="config-section">
       <div class="section-header">
         <h2 class="section-title">Model</h2>
@@ -27,7 +26,6 @@ title: Home
 
     <hr class="section-divider">
 
-    <!-- RAM Section -->
     <section class="config-section">
       <div class="section-header">
         <h2 class="section-title">RAM</h2>
@@ -43,15 +41,14 @@ title: Home
 
     <hr class="section-divider">
 
-    <!-- Storage Section -->
     <section class="config-section">
       <div class="section-header">
         <h2 class="section-title">Storage</h2>
       </div>
       <div class="input-group">
-        <input type="range" id="storage-slider" class="slider" min="50" max="400" value="50" step="50">
+        <input type="range" id="storage-slider" class="slider" min="50" max="1000" value="50" step="10">
         <div class="input-wrapper">
-          <input type="number" id="storage-input" class="number-input" min="50" max="400" value="50" step="50">
+          <input type="number" id="storage-input" class="number-input" min="50" max="1000" value="50" step="10">
           <span class="unit">GB</span>
         </div>
       </div>
@@ -59,30 +56,25 @@ title: Home
 
     <hr class="section-divider">
 
-    <!-- Price Section -->
     <section class="config-section">
       <div class="section-header">
         <h2 class="section-title">Price</h2>
       </div>
       <div class="price-display">
-        <!-- Kubernetes pricing display -->
         <div id="kubernetes-pricing" class="pricing-breakdown">
           <div class="price-monthly">
-            <span id="price-monthly">CHF 40</span> / month
+            <span id="price-monthly"></span> / month
           </div>
           <div class="price-yearly">
-            <strong id="price-yearly">CHF 480</strong> / year
+            <strong id="price-yearly"></strong> / year
           </div>
         </div>
-        <!-- VPS pricing display -->
         <div id="vps-pricing" class="pricing-breakdown" style="display: none;">
-          <div class="price-line price-monthly">
-            <span class="price-label">Prix mensuel:</span>
-            <span id="vps-monthly-price">CHF 0.00</span>
+          <div class="price-monthly">
+            <span id="vps-monthly-price"></span> / month
           </div>
-          <div class="price-line price-yearly">
-            <span class="price-label">Prix annuel:</span>
-            <strong id="vps-yearly-price">CHF 0.00</strong>
+          <div class="price-yearly">
+            <strong id="vps-yearly-price"></strong> / year
           </div>
         </div>
         <div class="price-note">VAT not included</div>
