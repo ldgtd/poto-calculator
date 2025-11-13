@@ -1,10 +1,11 @@
 const modelKubernetes = document.getElementById('model-kubernetes');
 const modelVPS = document.getElementById('model-vps');
-const ramSlider = document.getElementById('ram-slider');
-const ramInput = document.getElementById('ram-input');
+const ram2 = document.getElementById('ram-2');
+const ram4 = document.getElementById('ram-4');
+const ram8 = document.getElementById('ram-8');
+const ram16 = document.getElementById('ram-16');
 const storageSlider = document.getElementById('storage-slider');
 const storageInput = document.getElementById('storage-input');
-const ramValues = [2, 4, 8, 16];
 
 // Base price mapping based on RAM
 const basePrices = {
@@ -23,42 +24,16 @@ const vpsRamPrices = {
   16: 24
 };
 
-// Convert slider position (0-3) to RAM value
-function sliderToRam(sliderPos) {
-  if (sliderPos >= ramValues.length) {
-    return ramValues[ramValues.length - 1];
-  }
-  return ramValues[sliderPos] || 2;
-}
-
-// Convert RAM value to slider position (0-3)
-function ramToSlider(ramValue) {
-  if (ramValue >= 16) {
-    return 3;
-  }
-
-  let closestIndex = 0;
-  let minDiff = Math.abs(ramValue - ramValues[0]);
-  
-  for (let i = 1; i < ramValues.length; i++) {
-    const diff = Math.abs(ramValue - ramValues[i]);
-    if (diff < minDiff) {
-      minDiff = diff;
-      closestIndex = i;
-    }
-  }
-
-  return closestIndex;
+// Get selected RAM value from radio buttons
+function getSelectedRam() {
+  if (ram2.checked) return 2;
+  if (ram4.checked) return 4;
+  if (ram8.checked) return 8;
+  if (ram16.checked) return 16;
+  return 2; // default
 }
 
 function updateModelSettings() {
-  // RAM slider uses 0-3 internally, mapped to values (2, 4, 8, 16)
-  ramSlider.min = 0;
-  ramSlider.max = 3;
-  ramSlider.step = 1;
-  ramInput.min = 2;
-  ramInput.max = 16;
-  
   // Storage is 50-1000GB with step of 10
   storageSlider.min = 50;
   storageInput.min = 50;
@@ -66,14 +41,6 @@ function updateModelSettings() {
   storageInput.max = 1000;
   storageSlider.step = 10;
   storageInput.step = 10;
-  
-  // Ensure current RAM value is valid
-  let ramValue = parseInt(ramInput.value) || 2;
-  if (ramValue < 2) ramValue = 2;
-  if (ramValue > 16) ramValue = 16;
-  ramValue = sliderToRam(ramToSlider(ramValue));
-  ramInput.value = ramValue;
-  ramSlider.value = ramToSlider(ramValue);
   
   // Ensure current storage value is valid and rounded to nearest 10
   let storageValue = parseInt(storageInput.value) || 50;
@@ -86,7 +53,7 @@ function updateModelSettings() {
 
 // Price calculation
 function calculatePrice() {
-  const ram = parseInt(ramInput.value) || 2;
+  const ram = getSelectedRam();
   const storage = parseInt(storageInput.value) || 50;
   const selectedModel = modelKubernetes.checked ? 'kubernetes' : 'vps';
 
@@ -120,9 +87,20 @@ function calculatePrice() {
   }
 }
 
+function updateModelInfo() {
+  if (modelKubernetes.checked) {
+    document.getElementById('kubernetes-info').style.display = 'block';
+    document.getElementById('vps-info').style.display = 'none';
+  } else {
+    document.getElementById('kubernetes-info').style.display = 'none';
+    document.getElementById('vps-info').style.display = 'block';
+  }
+}
+
 modelKubernetes.addEventListener('change', function() {
   if (this.checked) {
     updateModelSettings();
+    updateModelInfo();
     calculatePrice();
   }
 });
@@ -130,28 +108,26 @@ modelKubernetes.addEventListener('change', function() {
 modelVPS.addEventListener('change', function() {
   if (this.checked) {
     updateModelSettings();
+    updateModelInfo();
     calculatePrice();
   }
 });
 
-ramSlider.addEventListener('input', function() {
-  const sliderPos = parseInt(this.value);
-  const ramValue = sliderToRam(sliderPos);
-  ramInput.value = ramValue;
-  calculatePrice();
+// RAM radio button event listeners
+ram2.addEventListener('change', function() {
+  if (this.checked) calculatePrice();
 });
 
-ramInput.addEventListener('input', function() {
-  let value = parseInt(this.value);
-  const maxValue = parseInt(ramInput.max);
-  const minValue = parseInt(ramInput.min);
-  if (value < minValue) value = minValue;
-  if (value > maxValue) value = maxValue;
-  // Round to nearest valid value (2, 4, 8, 16)
-  value = sliderToRam(ramToSlider(value));
-  this.value = value;
-  ramSlider.value = ramToSlider(value);
-  calculatePrice();
+ram4.addEventListener('change', function() {
+  if (this.checked) calculatePrice();
+});
+
+ram8.addEventListener('change', function() {
+  if (this.checked) calculatePrice();
+});
+
+ram16.addEventListener('change', function() {
+  if (this.checked) calculatePrice();
 });
 
 storageSlider.addEventListener('input', function() {
@@ -172,4 +148,5 @@ storageInput.addEventListener('input', function() {
 });
 
 updateModelSettings();
+updateModelInfo();
 calculatePrice();

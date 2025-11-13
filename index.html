@@ -4,14 +4,11 @@ title: Home
 ---
 
 <div class="calculator-container">
-  <h1 class="calculator-title">Hosting Calculator</h1>
-  
+  <div class="logo-container">
+    <img src="{{ '/assets/images/logo-test-1.png' | relative_url }}" alt="Logo" class="logo">
+  </div>
   <div class="calculator-content">
     <section class="config-section">
-      <div class="section-header">
-        <h2 class="section-title">Model</h2>
-      </div>
-      <p class="section-description">Select hosting type.</p>
       <div class="model-selector">
         <label class="model-option">
           <input type="radio" name="hosting-model" id="model-kubernetes" value="kubernetes" checked>
@@ -24,22 +21,71 @@ title: Home
       </div>
     </section>
 
-    <hr class="section-divider">
-
-    <section class="config-section">
-      <div class="section-header">
-        <h2 class="section-title">RAM</h2>
+    <section class="config-section model-info-section">
+      <div id="kubernetes-info" class="model-info">
+        <p class="model-info-description">Managed Kubernetes hosting with scalable infrastructure, automated deployments, and full container orchestration support.</p>
+        <ul class="model-info-features">
+          <li>Failover between nodes</li>
+          <li>Reachable through IPv4</li>
+          <li>Unlimited traffic</li>
+          <li>Firewall with a default deny all policy</li>
+          <li>Off-site backups:
+            <ul class="model-info-subfeatures">
+              <li>Daily with 7 days retention</li>
+              <li>Weekly with 6 weeks retention</li>
+              <li>Monthly with 3 months retention</li>
+            </ul>
+          </li>
+          <li>Monitoring for performance and availability</li>
+        </ul>
       </div>
-      <div class="input-group">
-        <input type="range" id="ram-slider" class="slider" min="0" max="3" value="0" step="1">
-        <div class="input-wrapper">
-          <input type="number" id="ram-input" class="number-input" min="2" max="16" value="2">
-          <span class="unit">GB</span>
-        </div>
+      <div id="vps-info" class="model-info" style="display: none;">
+        <p class="model-info-description">Virtual Private Server with managed services, giving you dedicated resources and support.</p>
+        <ul class="model-info-features">
+          <li>Debian GNU/Linux 13 operating system pre-installed</li>
+          <li>Total of 1 IPv4 and 1 IPv6 addresses available</li>
+          <li>Administration via SSH protocol with limited privileges</li>
+          <li>Unlimited traffic</li>
+          <li>Firewall with a default deny all policy</li>
+          <li>Off-site backups:
+            <ul class="model-info-subfeatures">
+              <li>Daily with 7 days retention</li>
+              <li>Weekly with 6 weeks retention</li>
+              <li>Monthly with 3 months retention</li>
+            </ul>
+          </li>
+          <li>Monitoring for performance and availability</li>
+          <li>Maintenance of VPS (security updates and operating system upgrade)</li>
+          <li>Managed services for Apache and MariaDB</li>
+        </ul>
       </div>
     </section>
 
     <hr class="section-divider">
+
+    <section class="config-section">
+      <div class="section-header">
+        <h2 class="section-title">vCPU & RAM</h2>
+      </div>
+      <div class="model-selector">
+        <label class="model-option">
+          <input type="radio" name="ram" id="ram-2" value="2" checked>
+          <span class="model-label">1 vCPU / 2 GB</span>
+        </label>
+        <label class="model-option">
+          <input type="radio" name="ram" id="ram-4" value="4">
+          <span class="model-label">2 vCPU / 4 GB</span>
+        </label>
+        <label class="model-option">
+          <input type="radio" name="ram" id="ram-8" value="8">
+          <span class="model-label">4 vCPU / 8 GB</span>
+        </label>
+        <label class="model-option">
+          <input type="radio" name="ram" id="ram-16" value="16">
+          <span class="model-label">8 vCPU / 16 GB</span>
+        </label>
+      </div>
+    </section>
 
     <section class="config-section">
       <div class="section-header">
@@ -57,9 +103,6 @@ title: Home
     <hr class="section-divider">
 
     <section class="config-section">
-      <div class="section-header">
-        <h2 class="section-title">Price</h2>
-      </div>
       <div class="price-display">
         <div id="kubernetes-pricing" class="pricing-breakdown">
           <div class="price-monthly">
