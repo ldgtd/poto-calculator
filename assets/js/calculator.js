@@ -28,6 +28,71 @@ const vpsRamPrices = {
   16: 24
 };
 
+// URL parameter management
+function getUrlParams() {
+  const params = new URLSearchParams(window.location.search);
+  return {
+    hosting: params.get('hosting') || 'managed',
+    model: params.get('model') || 'kubernetes',
+    ram: parseInt(params.get('ram')) || 2,
+    storage: parseInt(params.get('storage')) || 0,
+    services: parseInt(params.get('services')) || 3
+  };
+}
+
+function updateUrlParams() {
+  const params = new URLSearchParams();
+  params.set('hosting', hostingManaged.checked ? 'managed' : 'unmanaged');
+  params.set('model', modelKubernetes.checked ? 'kubernetes' : 'vps');
+  params.set('ram', getSelectedRam());
+  params.set('storage', parseInt(storageInput.value) || 0);
+  params.set('services', parseInt(servicesInput.value) || 3);
+  
+  const newUrl = window.location.pathname + '?' + params.toString();
+  window.history.pushState({}, '', newUrl);
+}
+
+function loadFromUrlParams() {
+  const urlParams = getUrlParams();
+  
+  // Set hosting type
+  if (urlParams.hosting === 'unmanaged') {
+    hostingUnmanaged.checked = true;
+  } else {
+    hostingManaged.checked = true;
+  }
+  
+  // Set model
+  if (urlParams.model === 'vps') {
+    modelVPS.checked = true;
+  } else {
+    modelKubernetes.checked = true;
+  }
+  
+  // Set RAM
+  const ramValue = urlParams.ram;
+  if (ramValue === 2) ram2.checked = true;
+  else if (ramValue === 4) ram4.checked = true;
+  else if (ramValue === 8) ram8.checked = true;
+  else if (ramValue === 16) ram16.checked = true;
+  else ram2.checked = true;
+  
+  // Set storage
+  let storageValue = urlParams.storage;
+  if (storageValue < 0) storageValue = 0;
+  if (storageValue > 1000) storageValue = 1000;
+  storageValue = Math.round(storageValue / 10) * 10;
+  storageInput.value = storageValue;
+  storageSlider.value = storageValue;
+  
+  // Set services
+  let servicesValue = urlParams.services;
+  if (servicesValue < 3) servicesValue = 3;
+  if (servicesValue > 10) servicesValue = 10;
+  servicesInput.value = servicesValue;
+  servicesSlider.value = servicesValue;
+}
+
 // Get selected RAM value from radio buttons
 function getSelectedRam() {
   if (ram2.checked) return 2;
@@ -147,6 +212,7 @@ hostingManaged.addEventListener('change', function() {
   if (this.checked) {
     updateModelInfo();
     calculatePrice();
+    updateUrlParams();
   }
 });
 
@@ -154,6 +220,7 @@ hostingUnmanaged.addEventListener('change', function() {
   if (this.checked) {
     updateModelInfo();
     calculatePrice();
+    updateUrlParams();
   }
 });
 
@@ -162,6 +229,7 @@ modelKubernetes.addEventListener('change', function() {
     updateModelSettings();
     updateModelInfo();
     calculatePrice();
+    updateUrlParams();
   }
 });
 
@@ -170,6 +238,7 @@ modelVPS.addEventListener('change', function() {
     updateModelSettings();
     updateModelInfo();
     calculatePrice();
+    updateUrlParams();
   }
 });
 
@@ -178,6 +247,7 @@ ram2.addEventListener('change', function() {
   if (this.checked) {
     updateCpuDisplay();
     calculatePrice();
+    updateUrlParams();
   }
 });
 
@@ -185,6 +255,7 @@ ram4.addEventListener('change', function() {
   if (this.checked) {
     updateCpuDisplay();
     calculatePrice();
+    updateUrlParams();
   }
 });
 
@@ -192,6 +263,7 @@ ram8.addEventListener('change', function() {
   if (this.checked) {
     updateCpuDisplay();
     calculatePrice();
+    updateUrlParams();
   }
 });
 
@@ -199,12 +271,14 @@ ram16.addEventListener('change', function() {
   if (this.checked) {
     updateCpuDisplay();
     calculatePrice();
+    updateUrlParams();
   }
 });
 
 storageSlider.addEventListener('input', function() {
   storageInput.value = this.value;
   calculatePrice();
+  updateUrlParams();
 });
 
 storageInput.addEventListener('input', function() {
@@ -217,11 +291,13 @@ storageInput.addEventListener('input', function() {
   this.value = value;
   storageSlider.value = value;
   calculatePrice();
+  updateUrlParams();
 });
 
 servicesSlider.addEventListener('input', function() {
   servicesInput.value = this.value;
   calculatePrice();
+  updateUrlParams();
 });
 
 servicesInput.addEventListener('input', function() {
@@ -233,8 +309,20 @@ servicesInput.addEventListener('input', function() {
   this.value = value;
   servicesSlider.value = value;
   calculatePrice();
+  updateUrlParams();
 });
 
+// Handle browser back/forward navigation
+window.addEventListener('popstate', function() {
+  loadFromUrlParams();
+  updateModelSettings();
+  updateModelInfo();
+  updateCpuDisplay();
+  calculatePrice();
+});
+
+// Initialize from URL parameters on page load
+loadFromUrlParams();
 updateModelSettings();
 updateModelInfo();
 updateCpuDisplay();
