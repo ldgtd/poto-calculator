@@ -8,7 +8,19 @@ title: Home
     <!-- <img src="{{ '/assets/images/logo-test-1.png' | relative_url }}" alt="Logo" class="logo"> -->
   </div>
   <div class="calculator-content">
-    <h1>Managed hosting</h1>
+    <h1 id="hosting-title">Managed hosting</h1>
+    <section class="config-section">
+      <div class="model-selector">
+        <label class="model-option">
+          <input type="radio" name="hosting-type" id="hosting-managed" value="managed" checked>
+          <span class="model-label">Managed</span>
+        </label>
+        <label class="model-option">
+          <input type="radio" name="hosting-type" id="hosting-unmanaged" value="unmanaged">
+          <span class="model-label">Unmanaged</span>
+        </label>
+      </div>
+    </section>
     <section class="config-section">
       <div class="model-selector">
         <label class="model-option">
@@ -23,7 +35,7 @@ title: Home
     </section>
 
     <section class="config-section model-info-section">
-      <div id="kubernetes-info" class="model-info">
+      <div id="kubernetes-managed-info" class="model-info">
         <p><b>Managed Kubernetes namespace in Liip cluster.</b></p>
         <p>Suitable for Production servers with high expectations.</p><br>
         <p><b>What's include :</b></p>
@@ -32,12 +44,22 @@ title: Home
           <li>Daily application backups</li>
           <li>Secure mail Gateway to send email from the server</li>
           <li>Monitoring for performance and availability</li><br>
-
+          <p>SLA and RTO TBD</p><br>
           <p><b>Installation cost :</b></p>
           <p class="section-description">A one-time fee of 400 CHF to set up the namespace and backups</p>
         </ul>
       </div>
-      <div id="vps-info" class="model-info" style="display: none;">
+      <div id="kubernetes-unmanaged-info" class="model-info" style="display: none;">
+        <p><b>Unmanaged Kubernetes namespace in Liip cluster.</b></p><br>
+        <p><b>What's include :</b></p>
+        <ul class="model-info-features">
+          <li>Reachable through IPv4</li>
+        </ul><br>
+        <p>SLA and RTO TBD</p><br>
+        <p><b>Installation cost :</b></p>
+        <p class="section-description">A one-time fee of 400 CHF to set up the namespace</p>
+      </div>
+      <div id="vps-managed-info" class="model-info" style="display: none;">
         <p>Suitable for Production servers or staging with high expectations.</p><br>
         <p><b>What's include :</b></p>
         <ul class="model-info-features">
@@ -48,6 +70,16 @@ title: Home
           <li>Services management (Ensure uptime, updates for third-party dependencies)</li>
           <li>Technical work to change the VPS type</li>
         </ul><br>
+        <p>SLA and RTO TBD</p><br>
+        <p><b>Installation cost :</b></p>
+        <p class="section-description">A one-time fee of 400 CHF  for a group of servers with the same configuration ordered at the same time.</p>
+      </div>
+      <div id="vps-unmanaged-info" class="model-info" style="display: none;">
+        <p><b>What's include :</b></p>
+        <ul class="model-info-features">
+          <li>An IPv4</li>
+        </ul>
+        <p>SLA and RTO TBD</p><br>
         <p><b>Installation cost :</b></p>
         <p class="section-description">A one-time fee of 400 CHF  for a group of servers with the same configuration ordered at the same time.</p>
       </div>

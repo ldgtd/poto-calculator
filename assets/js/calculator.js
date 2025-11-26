@@ -1,3 +1,5 @@
+const hostingManaged = document.getElementById('hosting-managed');
+const hostingUnmanaged = document.getElementById('hosting-unmanaged');
 const modelKubernetes = document.getElementById('model-kubernetes');
 const modelVPS = document.getElementById('model-vps');
 const ram2 = document.getElementById('ram-2');
@@ -70,25 +72,39 @@ function calculatePrice() {
   const storage = parseInt(storageInput.value) || 0;
   const services = parseInt(servicesInput.value) || 3;
   const selectedModel = modelKubernetes.checked ? 'kubernetes' : 'vps';
+  const isManaged = hostingManaged.checked;
 
-  let basePrice, storagePrice, ramPrice = 0, servicesPrice = 0;
+  let basePrice, storagePrice, ramPrice = 0, servicesPrice = 0, adminFee = 0;
   let monthlyPrice, yearlyPrice;
 
-  const additionalServices = Math.max(0, services - 3);
-  servicesPrice = additionalServices * 40;
-
+  // Calculate RAM price (same for both managed and unmanaged)
   if (selectedModel === 'kubernetes') {
-    basePrice = basePrices[ram] || 130;
     ramPrice = ram * 2.5;
-    storagePrice = storage * 0.1; 
-    monthlyPrice = basePrice + ramPrice + storagePrice + servicesPrice;
+  } else {
+    ramPrice = vpsRamPrices[ram] || 3;
+  }
+
+  storagePrice = storage * 0.1;
+
+  if (!isManaged) {
+    basePrice = 0;
+    servicesPrice = 0;
+    adminFee = 20;
+    monthlyPrice = basePrice + ramPrice + storagePrice + servicesPrice + adminFee;
     yearlyPrice = monthlyPrice * 12;
   } else {
-    basePrice = basePrices[ram] || 130;
-    ramPrice = vpsRamPrices[ram] || 3;
-    storagePrice = storage * 0.1;
-    monthlyPrice = basePrice + ramPrice + storagePrice + servicesPrice;
-    yearlyPrice = monthlyPrice * 12;
+    const additionalServices = Math.max(0, services - 3);
+    servicesPrice = additionalServices * 40;
+
+    if (selectedModel === 'kubernetes') {
+      basePrice = basePrices[ram] || 130;
+      monthlyPrice = basePrice + ramPrice + storagePrice + servicesPrice;
+      yearlyPrice = monthlyPrice * 12;
+    } else {
+      basePrice = basePrices[ram] || 130;
+      monthlyPrice = basePrice + ramPrice + storagePrice + servicesPrice;
+      yearlyPrice = monthlyPrice * 12;
+    }
   }
   
   if (selectedModel === 'kubernetes') {
@@ -105,21 +121,41 @@ function calculatePrice() {
 }
 
 function updateModelInfo() {
-  if (modelKubernetes.checked) {
-    document.getElementById('kubernetes-info').style.display = 'block';
-    document.getElementById('vps-info').style.display = 'none';
-    document.getElementById('services-section').style.display = 'block';
+  const isManaged = hostingManaged.checked;
+  const isKubernetes = modelKubernetes.checked;
+  document.getElementById('hosting-title').textContent = isManaged ? 'Managed hosting' : 'Unmanaged hosting';
+  document.getElementById('services-section').style.display = isManaged ? 'block' : 'none';
+  if (isKubernetes) {
+    document.getElementById('kubernetes-managed-info').style.display = isManaged ? 'block' : 'none';
+    document.getElementById('kubernetes-unmanaged-info').style.display = isManaged ? 'none' : 'block';
+    document.getElementById('vps-managed-info').style.display = 'none';
+    document.getElementById('vps-unmanaged-info').style.display = 'none';
     document.getElementById('kubernetes-cpu').style.display = 'block';
     document.getElementById('vps-cpu').style.display = 'none';
   } else {
-    document.getElementById('kubernetes-info').style.display = 'none';
-    document.getElementById('vps-info').style.display = 'block';
-    document.getElementById('services-section').style.display = 'block';
+    document.getElementById('kubernetes-managed-info').style.display = 'none';
+    document.getElementById('kubernetes-unmanaged-info').style.display = 'none';
+    document.getElementById('vps-managed-info').style.display = isManaged ? 'block' : 'none';
+    document.getElementById('vps-unmanaged-info').style.display = isManaged ? 'none' : 'block';
     document.getElementById('kubernetes-cpu').style.display = 'none';
     document.getElementById('vps-cpu').style.display = 'block';
   }
   updateCpuDisplay();
 }
+
+hostingManaged.addEventListener('change', function() {
+  if (this.checked) {
+    updateModelInfo();
+    calculatePrice();
+  }
+});
+
+hostingUnmanaged.addEventListener('change', function() {
+  if (this.checked) {
+    updateModelInfo();
+    calculatePrice();
+  }
+});
 
 modelKubernetes.addEventListener('change', function() {
   if (this.checked) {
