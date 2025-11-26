@@ -6,6 +6,8 @@ const ram8 = document.getElementById('ram-8');
 const ram16 = document.getElementById('ram-16');
 const storageSlider = document.getElementById('storage-slider');
 const storageInput = document.getElementById('storage-input');
+const servicesSlider = document.getElementById('services-slider');
+const servicesInput = document.getElementById('services-input');
 
 // Base price mapping based on RAM
 const basePrices = {
@@ -34,17 +36,17 @@ function getSelectedRam() {
 }
 
 function updateModelSettings() {
-  // Storage is 50-1000GB with step of 10
-  storageSlider.min = 50;
-  storageInput.min = 50;
+  // Storage is 0-1000GB with step of 10
+  storageSlider.min = 0;
+  storageInput.min = 0;
   storageSlider.max = 1000;
   storageInput.max = 1000;
   storageSlider.step = 10;
   storageInput.step = 10;
   
   // Ensure current storage value is valid and rounded to nearest 10
-  let storageValue = parseInt(storageInput.value) || 50;
-  if (storageValue < 50) storageValue = 50;
+  let storageValue = parseInt(storageInput.value) || 0;
+  if (storageValue < 0) storageValue = 0;
   if (storageValue > 1000) storageValue = 1000;
   storageValue = Math.round(storageValue / 10) * 10;
   storageInput.value = storageValue;
@@ -54,23 +56,28 @@ function updateModelSettings() {
 // Price calculation
 function calculatePrice() {
   const ram = getSelectedRam();
-  const storage = parseInt(storageInput.value) || 50;
+  const storage = parseInt(storageInput.value) || 0;
+  const services = parseInt(servicesInput.value) || 3;
   const selectedModel = modelKubernetes.checked ? 'kubernetes' : 'vps';
 
-  let basePrice, storagePrice, ramPrice = 0;
+  let basePrice, storagePrice, ramPrice = 0, servicesPrice = 0;
   let monthlyPrice, yearlyPrice;
+
+  // Services: 3 included, additional services cost 40 CHF each
+  const additionalServices = Math.max(0, services - 3);
+  servicesPrice = additionalServices * 40;
 
   if (selectedModel === 'kubernetes') {
     basePrice = basePrices[ram] || 130;
-    storagePrice = storage * 0.1; 
     ramPrice = ram * 2.5;
-    monthlyPrice = basePrice + storagePrice + ramPrice;
+    storagePrice = storage * 0.1; 
+    monthlyPrice = basePrice + ramPrice + storagePrice + servicesPrice;
     yearlyPrice = monthlyPrice * 12;
   } else {
     basePrice = basePrices[ram] || 130;
     ramPrice = vpsRamPrices[ram] || 3;
-    storagePrice = storage * 0.09;
-    monthlyPrice = basePrice + ramPrice + storagePrice;
+    storagePrice = storage * 0.1;
+    monthlyPrice = basePrice + ramPrice + storagePrice + servicesPrice;
     yearlyPrice = monthlyPrice * 12;
   }
   
@@ -91,9 +98,11 @@ function updateModelInfo() {
   if (modelKubernetes.checked) {
     document.getElementById('kubernetes-info').style.display = 'block';
     document.getElementById('vps-info').style.display = 'none';
+    document.getElementById('services-section').style.display = 'block';
   } else {
     document.getElementById('kubernetes-info').style.display = 'none';
     document.getElementById('vps-info').style.display = 'block';
+    document.getElementById('services-section').style.display = 'block';
   }
 }
 
@@ -144,6 +153,22 @@ storageInput.addEventListener('input', function() {
   value = Math.round(value / 10) * 10;
   this.value = value;
   storageSlider.value = value;
+  calculatePrice();
+});
+
+servicesSlider.addEventListener('input', function() {
+  servicesInput.value = this.value;
+  calculatePrice();
+});
+
+servicesInput.addEventListener('input', function() {
+  let value = parseInt(this.value);
+  const maxValue = parseInt(servicesInput.max);
+  const minValue = parseInt(servicesInput.min);
+  if (value < minValue) value = minValue;
+  if (value > maxValue) value = maxValue;
+  this.value = value;
+  servicesSlider.value = value;
   calculatePrice();
 });
 
