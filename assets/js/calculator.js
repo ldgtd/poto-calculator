@@ -35,8 +35,20 @@ function getSelectedRam() {
   return 2; // default
 }
 
+function updateCpuDisplay() {
+  const ram = getSelectedRam();
+
+  const kubernetesCpu = ram / 4;
+  const vpsCpu = ram / 2;
+
+  const kubernetesCpuText = `${kubernetesCpu}`;
+  const vpsCpuText = `${vpsCpu}`;
+  
+  document.getElementById('kubernetes-cpu').querySelector('.cpu-value').textContent = kubernetesCpuText;
+  document.getElementById('vps-cpu').querySelector('.cpu-value').textContent = vpsCpuText;
+}
+
 function updateModelSettings() {
-  // Storage is 0-1000GB with step of 10
   storageSlider.min = 0;
   storageInput.min = 0;
   storageSlider.max = 1000;
@@ -44,7 +56,6 @@ function updateModelSettings() {
   storageSlider.step = 10;
   storageInput.step = 10;
   
-  // Ensure current storage value is valid and rounded to nearest 10
   let storageValue = parseInt(storageInput.value) || 0;
   if (storageValue < 0) storageValue = 0;
   if (storageValue > 1000) storageValue = 1000;
@@ -63,7 +74,6 @@ function calculatePrice() {
   let basePrice, storagePrice, ramPrice = 0, servicesPrice = 0;
   let monthlyPrice, yearlyPrice;
 
-  // Services: 3 included, additional services cost 40 CHF each
   const additionalServices = Math.max(0, services - 3);
   servicesPrice = additionalServices * 40;
 
@@ -99,11 +109,16 @@ function updateModelInfo() {
     document.getElementById('kubernetes-info').style.display = 'block';
     document.getElementById('vps-info').style.display = 'none';
     document.getElementById('services-section').style.display = 'block';
+    document.getElementById('kubernetes-cpu').style.display = 'block';
+    document.getElementById('vps-cpu').style.display = 'none';
   } else {
     document.getElementById('kubernetes-info').style.display = 'none';
     document.getElementById('vps-info').style.display = 'block';
     document.getElementById('services-section').style.display = 'block';
+    document.getElementById('kubernetes-cpu').style.display = 'none';
+    document.getElementById('vps-cpu').style.display = 'block';
   }
+  updateCpuDisplay();
 }
 
 modelKubernetes.addEventListener('change', function() {
@@ -124,19 +139,31 @@ modelVPS.addEventListener('change', function() {
 
 // RAM radio button event listeners
 ram2.addEventListener('change', function() {
-  if (this.checked) calculatePrice();
+  if (this.checked) {
+    updateCpuDisplay();
+    calculatePrice();
+  }
 });
 
 ram4.addEventListener('change', function() {
-  if (this.checked) calculatePrice();
+  if (this.checked) {
+    updateCpuDisplay();
+    calculatePrice();
+  }
 });
 
 ram8.addEventListener('change', function() {
-  if (this.checked) calculatePrice();
+  if (this.checked) {
+    updateCpuDisplay();
+    calculatePrice();
+  }
 });
 
 ram16.addEventListener('change', function() {
-  if (this.checked) calculatePrice();
+  if (this.checked) {
+    updateCpuDisplay();
+    calculatePrice();
+  }
 });
 
 storageSlider.addEventListener('input', function() {
@@ -174,4 +201,5 @@ servicesInput.addEventListener('input', function() {
 
 updateModelSettings();
 updateModelInfo();
+updateCpuDisplay();
 calculatePrice();

@@ -24,19 +24,22 @@ title: Home
 
     <section class="config-section model-info-section">
       <div id="kubernetes-info" class="model-info">
-        <p>Managed Kubernetes namespace in Liip cluster.</p>
+        <p><b>Managed Kubernetes namespace in Liip cluster.</b></p>
         <p>Suitable for Production servers with high expectations.</p><br>
-        <p>What's include :</p>
+        <p><b>What's include :</b></p>
         <ul class="model-info-features">
           <li>Reachable through IPv4</li>
           <li>Daily application backups</li>
           <li>Secure mail Gateway to send email from the server</li>
-          <li>Monitoring for performance and availability</li>
+          <li>Monitoring for performance and availability</li><br>
+
+          <p><b>Installation cost :</b></p>
+          <p class="section-description">A one-time fee of 400 CHF to set up the namespace and backups</p>
         </ul>
       </div>
       <div id="vps-info" class="model-info" style="display: none;">
         <p>Suitable for Production servers or staging with high expectations.</p><br>
-        <p>What's include :</p>
+        <p><b>What's include :</b></p>
         <ul class="model-info-features">
           <li>An IPv4</li>
           <li>Daily backups</li>
@@ -45,6 +48,8 @@ title: Home
           <li>Services management (Ensure uptime, updates for third-party dependencies)</li>
           <li>Technical work to change the VPS type</li>
         </ul><br>
+        <p><b>Installation cost :</b></p>
+        <p class="section-description">A one-time fee of 400 CHF  for a group of servers with the same configuration ordered at the same time.</p>
       </div>
     </section>
 
@@ -71,6 +76,19 @@ title: Home
           <input type="radio" name="ram" id="ram-16" value="16">
           <span class="model-label">16 GB</span>
         </label>
+      </div>
+    </section>
+
+    <section class="config-section">
+      <div class="section-header">
+        <h2 class="section-title">CPU</h2>
+      </div>
+      <div id="kubernetes-cpu" class="cpu-display">
+        <p class="section-description">CPU usage can be unlimited as long as on 2 week basis the average CPU usage is equal or that RAM value divided per 4</p>
+        <p class="cpu-value">1</p>
+      </div>
+      <div id="vps-cpu" class="cpu-display" style="display: none;">
+        <p class="cpu-value">1</p>
       </div>
     </section>
 
