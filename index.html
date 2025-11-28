@@ -4,9 +4,9 @@ title: Home
 ---
 
 <div class="calculator-container">
-  <div class="logo-container">
+  <!-- <div class="logo-container"> -->
     <!-- <img src="{{ '/assets/images/logo-test-1.png' | relative_url }}" alt="Logo" class="logo"> -->
-  </div>
+  <!-- </div> -->
   <div class="calculator-content">
     <h1 id="hosting-title">Managed hosting</h1>
     <section class="config-section">
@@ -44,7 +44,10 @@ title: Home
           <li>Daily application backups</li>
           <li>Secure mail Gateway to send email from the server</li>
           <li>Monitoring for performance and availability</li><br>
-          <p>SLA and RTO TBD</p><br>
+          <p><b>SLA :</b></p>
+          <p>An availability of 99.7% is guaranteed during the business hours (Monday-Friday 08:00-17:00)</p><br>
+          <p><b>Outage delay :</b></p>
+          <p>4 hours reaction time during the business hours (Monday-Friday 08:00-17:00)</p><br>
           <p><b>Installation cost :</b></p>
           <p class="section-description">A one-time fee of 400 CHF to set up the namespace and backups</p>
         </ul>
@@ -55,7 +58,10 @@ title: Home
         <ul class="model-info-features">
           <li>Reachable through IPv4</li>
         </ul><br>
-        <p>SLA and RTO TBD</p><br>
+        <p><b>SLA :</b></p>
+        <p>No SLA is guaranteed</p><br>
+        <p><b>Outage delay :</b></p>
+        <p>There is no outage delay to work on it, and it might take up to 8 working days to conduct work on it.</p><br>
         <p><b>Installation cost :</b></p>
         <p class="section-description">A one-time fee of 400 CHF to set up the namespace</p>
       </div>
@@ -63,30 +69,35 @@ title: Home
         <p>Suitable for Production servers or staging with high expectations.</p><br>
         <p><b>What's include :</b></p>
         <ul class="model-info-features">
-          <li>An IPv4</li>
+          <li>Reachable through IPv4</li>
           <li>Daily backups</li>
           <li>Secure mail Gateway to send email from the server</li>
           <li>Server management (OS updates, patch)</li>
           <li>Services management (Ensure uptime, updates for third-party dependencies)</li>
           <li>Technical work to change the VPS type</li>
         </ul><br>
-        <p>SLA and RTO TBD</p><br>
+        <p><b>SLA :</b></p>
+        <p>An availability of 99.7% is guaranteed during the business hours (Monday-Friday 08:00-17:00)</p><br>
+        <p><b>Outage delay :</b></p>
+        <p>4 hours reaction time during the business hours (Monday-Friday 08:00-17:00)</p><br>
         <p><b>Installation cost :</b></p>
         <p class="section-description">A one-time fee of 400 CHF  for a group of servers with the same configuration ordered at the same time.</p>
       </div>
       <div id="vps-unmanaged-info" class="model-info" style="display: none;">
         <p><b>What's include :</b></p>
         <ul class="model-info-features">
-          <li>An IPv4</li>
+          <li>Reachable through IPv4</li>
         </ul><br>
-        <p>SLA and RTO TBD</p><br>
+        <p><b>SLA :</b></p>
+        <p>No SLA is guaranteed</p><br>
+        <p><b>Outage delay :</b></p>
+        <p>There is no outage delay to work on it, and it might take up to 8 working days to conduct work on it.</p><br>
         <p><b>Installation cost :</b></p>
         <p class="section-description">A one-time fee of 400 CHF  for a group of servers with the same configuration ordered at the same time.</p>
       </div>
     </section>
 
-    <hr class="section-divider">
-
+    <h1>Calculator</h1>
     <section class="config-section">
       <div class="section-header">
         <h2 class="section-title">RAM</h2>
@@ -175,7 +186,13 @@ title: Home
         <div class="price-note">VAT not included</div>
       </div>
     </section>
+
+    <section class="config-section">
+      <button id="export-pdf-btn" class="export-button">Export as PDF Quote</button>
+    </section>
   </div>
 </div>
 
+<script src="{{ '/assets/js/jspdf.umd.min.js' | relative_url }}"></script>
 <script src="{{ '/assets/js/calculator.js' | relative_url }}"></script>
+<script src="{{ '/assets/js/pdf-export.js' | relative_url }}"></script>

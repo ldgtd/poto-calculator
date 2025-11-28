@@ -327,3 +327,4 @@ updateModelSettings();
 updateModelInfo();
 updateCpuDisplay();
 calculatePrice();
+  

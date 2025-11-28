@@ -330,6 +330,30 @@ body {
     margin-top: 8px;
 }
 
+.export-button {
+    width: 100%;
+    padding: 15px 30px;
+    background-color: #fff;
+    color: #000;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+}
+
+.export-button:hover {
+    background-color: #fff;
+    opacity: 0.9;
+}
+
+.export-button:active {
+    background-color: #fff;
+    opacity: 0.9;
+}
+
 @media (max-width: 600px) {
     .input-group {
         flex-direction: column;
