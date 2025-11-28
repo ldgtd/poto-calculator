@@ -63,7 +63,7 @@ function exportToPDF() {
   if (!isManaged) {
     basePrice = 0;
     servicesPrice = 0;
-    adminFee = 20;
+    adminFee = 24;
     monthlyPrice = basePrice + ramPrice + storagePrice + servicesPrice + adminFee;
     yearlyPrice = monthlyPrice * 12;
   } else {
